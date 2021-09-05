@@ -1,24 +1,37 @@
 import './assets/styles/style.css';
 import React from 'react';
 import defaultDataset from './dataset';
+import { AnswersList } from './componets'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer: [],
+      answers: [],
       chats: [],
       currentId: "init",
       dataset: defaultDataset,
       open: false,
-    }
+    };
+  }
+
+  initAnswer = () => {
+    const initDataset = this.state.dataset[this.state.currentId];
+    const initAnswers = initDataset.answers;
+    this.setState({
+      answers: initAnswers,
+    });
+  };
+
+  componentDidMount() {
+    this.initAnswer();
   }
 
   render() {
     return (
       <section className="c-select">
         <div className="c-box">
-          {this.state.currentId}
+          <AnswersList answers={this.state.answers} />
         </div>
       </section>
     );
